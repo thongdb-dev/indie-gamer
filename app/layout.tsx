@@ -1,3 +1,5 @@
+import "./global.css";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
 
