@@ -1,8 +1,14 @@
 import Heading from "@/components/Heading";
 import { getReview } from "@/lib/reviews";
 
-export default async function StardewValleyPage() {
-  const { title, date, image, html } = await getReview();
+interface ReviewPageProps {
+  params: { slug: string };
+}
+
+export default async function ReviewPage({
+  params: { slug },
+}: ReviewPageProps) {
+  const { title, date, image, html } = await getReview(slug);
 
   return (
     <>
