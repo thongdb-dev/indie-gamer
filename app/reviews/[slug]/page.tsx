@@ -8,7 +8,7 @@ interface ReviewPageProps {
 export default async function ReviewPage({
   params: { slug },
 }: ReviewPageProps) {
-  const { title, date, image, html } = await getReview(slug);
+  const { title, date, image, body } = await getReview(slug);
 
   return (
     <>
@@ -22,7 +22,7 @@ export default async function ReviewPage({
         className="mb-2 rounded"
       />
       <article
-        dangerouslySetInnerHTML={{ __html: html }}
+        dangerouslySetInnerHTML={{ __html: body }}
         className="max-w-screen-sm prose prose-slate"
       ></article>
     </>
