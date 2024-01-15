@@ -1,8 +1,10 @@
 import { readFile } from "node:fs/promises";
+import { marked } from "marked";
 import Heading from "@/components/Heading";
 
 export default async function StardewValleyPage() {
   const text = await readFile("./content/reviews/stardew-valley.md", "utf-8");
+  const html = marked(text);
 
   return (
     <>
@@ -14,7 +16,7 @@ export default async function StardewValleyPage() {
         height={360}
         className="mb-2 rounded"
       />
-      <p>{text}</p>
+      <article dangerouslySetInnerHTML={{ __html: html }}></article>
     </>
   );
 }
