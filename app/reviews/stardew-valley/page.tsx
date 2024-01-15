@@ -16,7 +16,10 @@ export default async function StardewValleyPage() {
         height={360}
         className="mb-2 rounded"
       />
-      <article dangerouslySetInnerHTML={{ __html: html }}></article>
+      <article
+        dangerouslySetInnerHTML={{ __html: html }}
+        className="max-w-screen-sm prose prose-slate"
+      ></article>
     </>
   );
 }
