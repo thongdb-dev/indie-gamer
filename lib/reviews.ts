@@ -1,4 +1,5 @@
 import { readFile, readdir } from "node:fs/promises";
+
 import { marked } from "marked";
 import matter from "gray-matter";
 
@@ -21,6 +22,11 @@ export async function getReview(slug: string): Promise<Review> {
   return { slug, title, date, image, body };
 }
 
+export async function getFeaturedReview() {
+  const reviews = await getReviews();
+  return reviews[0];
+}
+
 export async function getReviews(): Promise<Review[]> {
   const slugs = await getSlugs();
   const reviews: Review[] = [];
@@ -29,6 +35,7 @@ export async function getReviews(): Promise<Review[]> {
     const review = await getReview(slug);
     reviews.push(review);
   }
+  reviews.sort((a, b) => b.date.localeCompare(a.date));
 
   return reviews;
 }

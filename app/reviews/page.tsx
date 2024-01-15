@@ -10,7 +10,10 @@ export default async function ReviewsPage() {
       <Heading>Reviews</Heading>
       <ul className="flex flex-row flex-wrap gap-3">
         {reviews?.map((review) => (
-          <li className="border w-80 bg-white rounded shadow hover:shadow-xl">
+          <li
+            key={review.slug}
+            className="border w-80 bg-white rounded shadow hover:shadow-xl"
+          >
             <Link href={`/reviews/${review.slug}`}>
               <img
                 src={review.image}
