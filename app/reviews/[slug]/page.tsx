@@ -10,10 +10,10 @@ interface ReviewPageProps {
   params: ReviewPageParams;
 }
 
-export async function generateStaticParams(): Promise<ReviewPageParams[]> {
-  const slugs = await getSlugs();
-  return slugs.map((slug: string) => ({ slug }));
-}
+// export async function generateStaticParams(): Promise<ReviewPageParams[]> {
+//   const slugs = await getSlugs();
+//   return slugs.map((slug: string) => ({ slug }));
+// }
 
 export async function generateMetadata({
   params: { slug },
