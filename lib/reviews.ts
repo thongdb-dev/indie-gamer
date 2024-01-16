@@ -2,6 +2,9 @@ import { readFile, readdir } from "node:fs/promises";
 
 import { marked } from "marked";
 import matter from "gray-matter";
+import qs from "qs";
+
+const CMS_URL = 'http://localhost:1337';
 
 export interface Review {
   slug: string;
@@ -28,16 +31,28 @@ export async function getFeaturedReview() {
 }
 
 export async function getReviews(): Promise<Review[]> {
-  const slugs = await getSlugs();
-  const reviews: Review[] = [];
+  const url =
+    `${CMS_URL}/api/reviews` +
+    "?" +
+    qs.stringify(
+      {
+        fields: ["slug", "title", "subtitle", "publishedAt"],
+        populate: { image: { fields: ["url"] } },
+        sort: ["publishedAt:desc"],
+        pagination: { pageSize: 6 },
+      },
+      { encodeValuesOnly: true }
+    );
 
-  for (const slug of slugs) {
-    const review = await getReview(slug);
-    reviews.push(review);
-  }
-  reviews.sort((a, b) => b.date.localeCompare(a.date));
+  const response = await fetch(url);
+  const { data } = await response.json();
 
-  return reviews;
+  return data.map(({ attributes }) => ({
+    slug: attributes.slug,
+    title: attributes.title,
+    date: attributes.publishedAt.slice(0, 'yyy-mm-dd'.length),
+    image: CMS_URL + attributes.image.data.attributes.url
+  }));
 }
 
 export async function getSlugs(): Promise<string[]> {
