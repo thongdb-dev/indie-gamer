@@ -11,6 +11,7 @@ interface CmsItem {
 export interface Review {
   slug: string;
   title: string;
+  subtitle: string;
   date: string;
   image: string;
   body?: string | Promise<string>;
@@ -71,6 +72,7 @@ function convertToReview(item: CmsItem): Review {
   return {
     slug: attributes.slug,
     title: attributes.title,
+    subtitle: attributes.subtitle,
     date: attributes.publishedAt.slice(0, 'yyy-mm-dd'.length),
     image: CMS_URL + attributes.image.data.attributes.url
   }
