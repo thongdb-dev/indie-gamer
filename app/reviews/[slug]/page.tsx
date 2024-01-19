@@ -2,6 +2,7 @@ import Heading from "@/components/Heading";
 import ShareLinkButton from "@/components/ShareLinkButton";
 import { getReview, getSlugs } from "@/lib/reviews";
 import { Metadata } from "next";
+import Image from "next/image";
 
 interface ReviewPageParams {
   slug: string;
@@ -36,9 +37,10 @@ export default async function ReviewPage({
         <p className="italic pb-2">{date}</p>
         <ShareLinkButton />
       </div>
-      <img
+      <Image
         src={image}
         alt=""
+        priority
         width={640}
         height={360}
         className="mb-2 rounded"

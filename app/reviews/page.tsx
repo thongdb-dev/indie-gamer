@@ -15,7 +15,7 @@ export default async function ReviewsPage() {
     <>
       <Heading>Reviews</Heading>
       <ul className="flex flex-row flex-wrap gap-3">
-        {reviews?.map((review) => (
+        {reviews?.map((review, index) => (
           <li
             key={review.slug}
             className="border w-80 bg-white rounded shadow hover:shadow-xl"
@@ -24,6 +24,7 @@ export default async function ReviewsPage() {
               <Image
                 src={review.image}
                 alt=""
+                priority={index === 0}
                 width={320}
                 height={180}
                 className="rounded-t"
